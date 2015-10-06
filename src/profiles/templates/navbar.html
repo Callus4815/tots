@@ -17,15 +17,15 @@
               {% url 'contact' as contact %}
             <li {% if request.path == home %} class="active"{%endif%}><a href="{% url 'home' %}">Home</a></li>
             <li {% if request.path == about %} class="active"{%endif%}><a href="{% url 'about' %}">About</a></li>
-            <li {% if request.path == contact %} class="active"{%endif%}><a href="{% url 'contact' %}">Contact</a></li>
             {% if request.user.is_authenticated %}
             <li {% if request.path == MyCloset %} class="active"{%endif%}><a href="{% url 'home' %}">My Closet</a></li>
+            <li {% if request.path == contact %} class="active"{%endif%}><a href="{% url 'contact' %}">Contact</a></li>
             {% endif %}
             <li class="dropdown">
               {% if not request.user.is_authenticated %}
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login or Register Here <span class="caret"></span></a>
               {% else %}
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Logout <span class="caret"></span></a>
+              <li><a href="/logout">Logout</a></li>
               {% endif %}
               <ul class="dropdown-menu">
                 {% if not request.user.is_authenticated %}

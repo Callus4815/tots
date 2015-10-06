@@ -11,6 +11,7 @@ class Item(models.Model):
 	price = models.CharField(max_length=255)
 	condition = models.CharField(max_length=255)
 	text = models.CharField(max_length=140)
+	photo = models.FileField(upload_to='item/%Y/%m/%d', default=None)
 	posted_at = models.DateTimeField()
 	favorited_items = models.ManyToManyField(User, through='Favorite',
 												related_name="favorited_items")

@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+admin.autodiscover()
 
+
+from closets import views as closet_views
 from user import views as user_views
 from django.contrib.auth import views as views
 
@@ -30,8 +33,12 @@ urlpatterns = [
 	url(r'^register', user_views.AddUserView.as_view(), name='user_register'),
 	url(r'^logout', views.logout, {'template_name': 'logout.html'}, name='logout'),
     url(r'^user/', include('user.urls')),
-
+    # url(r'^mycloset/<(?P<user_id>\d+)$', closet_views.ClosetView.as_view(), name="my_closet"),
+    url(r'^upload/', closet_views.ItemImageView.as_view(), name='item_image_upload'),
+    url(r'^uploaded/(?P<pk>\d+)/$', closet_views.ItemDetailView.as_view(), name='item_image'),
+    url(r'^new/$', closet_views.ItemCreate.as_view(), name='add_item'),
 
 
 
 ]
+

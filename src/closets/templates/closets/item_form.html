@@ -1,0 +1,16 @@
+{% extends 'base.html'%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h2>Add Item</h2>
+<div class ="col-md-4 col-md-offset-4">
+    <form method="POST"  action="{% url 'add_item' %}">
+        {% csrf_token %}
+        {{ userform|crispy }}
+	    {{ form|crispy }}
+	    
+	    <input type="submit" name="submit" value="Add"/>
+
+    </form>
+</div>
+{% endblock %}
