@@ -1,17 +1,51 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block jumbotron %}
  <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
         <h1>Ebaby Trader</h1>
-        <p>This is a template showcasing the optional theme stylesheet included in Bootstrap. Use it as a starting point to create something more unique by building on or modifying it.</p>
+        
       </div>
 {% endblock %}
 
 {% block content %}
-
-
-		<h1>Hello {{ user.username }}!</h1>
+	<!-- <h1>!</h1>
+	
+	{% for item in items %}
+	<a href="{% url 'show_user' item.user.id %}"
+		class="user_link">
+			{{ item.user }}<br/>
+			{{ item.name }}<br/>
+			{{ item.brand }}<br/>
+			${{ item.price }}<br/><br/>
+			{% endfor %}
+ -->
+<div class="container">
+  <h2>Hello {{ user.username }}</h2>
+              
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Product Name</th>
+        <th>Product Brand</th>
+        <th>Product Price</th>
+        <th>Posted</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for item in items %}
+      <tr>
+        <td><a href="{% url 'show_user' item.user.id %}"/a>{{ item.user }}</td>
+        <td><a href="{% url 'show_item' item.id %}"/a>{{ item.name }}</td>
+        <td>{{ item.brand }}</td>
+        <td>${{ item.price }}</td>
+        <td>{{ item.posted_at|naturaltime }}
+      </tr>
+      {% endfor %}
+   </table>
+</div>
 {% endblock %}
 
 

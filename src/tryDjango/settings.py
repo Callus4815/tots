@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     
 
     'profiles',
@@ -48,6 +49,7 @@ INSTALLED_APPS = (
     'user',
     'contact',
     'closets',
+    
 
 
 
@@ -115,7 +117,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 if DEBUG:
-	MEDIA_URL = '/media/'
+	MEDIA_URL = '/static/media/'
 	STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "static-only")
 	MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "media")
 	STATICFILES_DIRS = os.path.join(os.path.dirname(BASE_DIR), "static", "static"),

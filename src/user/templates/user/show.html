@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <h1>{{ user }}</h1>
+
+  {% if request.user.is_authenticated %}
+    <form method="POST" action="{% url 'follow_user' user.id %}">
+    	{% csrf_token %}
+    	<input type="submit" value="Follow this user"/>
+    </form>
+   {% endif %}
+
+
+
+
+
+
+
+{% endblock %}
+
+
+

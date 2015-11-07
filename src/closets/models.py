@@ -11,13 +11,14 @@ class Item(models.Model):
 	price = models.CharField(max_length=255)
 	condition = models.CharField(max_length=255)
 	text = models.CharField(max_length=140)
-	photo = models.FileField(upload_to='item/%Y/%m/%d', default=None)
+	photo = models.ImageField(upload_to='item/%Y/%m/%d')
 	posted_at = models.DateTimeField()
 	favorited_items = models.ManyToManyField(User, through='Favorite',
 												related_name="favorited_items")
 
 	def get_absolute_url(self):
 		return reverse('show_item', kwargs={'item_id': self.id})
+
 
 	def __str__(self):
 		return "{}: {}: {}".format(self.user, self.name, self.text)

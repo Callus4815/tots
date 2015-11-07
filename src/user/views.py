@@ -1,12 +1,20 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
-from django.views.generic import DetailView, View
+from django.views.generic import DetailView, View, ListView
 from .forms import UserForm, ProfileForm
 from .models import Profile, get_profile
+from django.contrib import messages
+
 
 # Create your views here.
+
+
+# class UserListView(ListView):
+#     model = User
+#     paginate = 
+
 
 class AddUserView(View):
 
@@ -63,7 +71,22 @@ def edit_profile(request):
     return render(request, "edit_profile.html", {"form": profile_form, 'data1': product_data, 'data2': service_data})
 
 
-# def logout(request):
-#     if User.user_logged_out():
-#         return render(request, 'home.html')
+def show_user(request, user_id):
+    user = User.objects.get(pk=user_id)
+    items = user.item_set.all()
+    return render(request,"user/show.html",
+        {"user": user,
+        "items": items})
+
+@login_required
+def follow_user(request, user_id):
+    follower = get_profile(request.user, save=True)
+    user_to_follow = get_object_or_404(User, pk=user_id)
+    profile_to_follow = get_profile(user_to_follow, save=True)
+
+    follower.followed.add(profile_to_follow)
+    messages.add_message(request, messages.SUCCESS,
+                         "You have followed this user.")
+    return redirect('show_user', user_to_follow.id)
+
 
