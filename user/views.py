@@ -2,10 +2,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
-from django.views.generic import DetailView, View, ListView
-from .forms import UserForm, ProfileForm
-from .models import Profile, get_profile
+from django.views.generic import DetailView, View
 from django.contrib import messages
+
+from .forms import UserForm, ProfileForm
+from user.models import get_profile
+
 
 
 # Create your views here.

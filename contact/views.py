@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.conf import settings
-from .forms import contactForm
 from django.core.mail import send_mail
+
+from contact.forms import contactForm
+
 # Create your views here.
 
 

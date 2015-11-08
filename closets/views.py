@@ -1,5 +1,7 @@
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import View, DetailView, ListView, FormView, CreateView
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.views.generic import View, DetailView, ListView, CreateView
 from django.db.models import Count
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -7,13 +9,8 @@ from django.utils.datetime_safe import datetime
 from django.utils import timezone
 from django.contrib import messages
 
-
-
-
-
-
 from .models import Item
-from .forms import ItemForm, ItemImageForm
+from closets.forms import ItemForm, ItemImageForm
 
 
 class LoginRequiredMixin(object):

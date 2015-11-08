@@ -6,4 +6,33 @@
     color: rgba(30, 158, 9, 0.69);;
     }
 
- 
+.messages { text-align: center;
+			}
+
+.success-exit {
+    font-family: untitled-font-1;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translate(0, -50%);
+    border-radius: 100%;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
