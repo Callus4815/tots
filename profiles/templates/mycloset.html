@@ -20,11 +20,7 @@
         <td><a href="{% url 'show_item' item.id %}"/a>{{ item.name }}</td>
         <td>{{ item.brand }}</td>
         <td>${{ item.price }}</td>
-		<td>{% if photo == None %}
-		<p>You have no photo for this item in your closet, get some.  It'll help you sell</p>
-		{% else %}
-		Photo: <img src="{{ item.photo.url }}" alt="image not found"/><br/>
-		{% endif %}</td>
+		<td><img src="{{ item.photo.url }}" alt="image not found"/><br/></td>
 {% endfor %}
       </tr>
     </tbody>
@@ -42,5 +38,4 @@
 
 
 
-<h1>I'm supposed to show MyCloset{{ user.id }}</h1>
 {% endblock %}

@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.contrib import messages
 
 from .models import Item
-from closets.forms import ItemForm, ItemImageForm
+from closets.forms import ItemForm
 
 
 class LoginRequiredMixin(object):
@@ -18,32 +18,19 @@ class LoginRequiredMixin(object):
 	def dispatch(self, request, *args, **kwargs):
 		return super().dispatch(request, *args, **kwargs)
 
-class ItemImageView(DetailView):
-	model = Item
-	template_name = 'show_item.html'
-	form_class = ItemImageForm
-	context_object_name = "items"
-	slug_field = 'item_id'
-	queryset = Item.objects.all().filter()
-
-
-	def form_valid(self, form):
-		item_image = Item(photo=self.get_form_kwargs().get('files')['photo'])
-		item_image.save()
-		self.id = item_image.id
-
-		return HttpResponseRedirect(self.get_success_url())
-
-	def get_success_url(self):
-		return reverse('item_image', kwargs={'pk': self.id})
+################################################################################################################
 
 class ItemDetailView(DetailView):
 	model = Item
 	context_object_name = 'items'
 	template_name = 'show_item.html'
 
-	def get_object(self, queryset=None):
-		return Item.objects.filter(user=self.request.user)
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		return context
+
+################################################################################################################
 
 
 class ItemCreate(LoginRequiredMixin, CreateView):
@@ -55,9 +42,9 @@ class ItemCreate(LoginRequiredMixin, CreateView):
 		form.instance.posted_at = timezone.now()
 		messages.add_message(self.request, messages.SUCCESS,
 			"Item Added")
-
-
 		return super().form_valid(form)
+
+################################################################################################################
 
 
 class AddItemView(LoginRequiredMixin, View):
@@ -79,6 +66,9 @@ class AddItemView(LoginRequiredMixin, View):
 		else:
 			return render(request, '/add.html', {'form': form})
 
+################################################################################################################
+
+
 class ClosetView(LoginRequiredMixin, ListView):
 	model = Item
 	context_object_name = 'items'
@@ -98,6 +88,8 @@ class ClosetView(LoginRequiredMixin, ListView):
 		context["favorites"] = favorites
 		return context
 
+################################################################################################################
+
 
 class UserClosetView(DetailView):
 	model = Item
@@ -110,6 +102,10 @@ class UserClosetView(DetailView):
 			return HttpResponse("You have no items in your closet, get some.")
 		else:
 			return Item.objects.filter(user=self.request.user)
+
+################################################################################################################
+
+
 
 
 	

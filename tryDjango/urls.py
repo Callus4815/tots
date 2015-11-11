@@ -27,6 +27,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', 'profiles.views.index', name='index'),
     url(r'^home$', closet_views.ClosetView.as_view(), name='home'),
     url(r'^about/$', 'profiles.views.about', name='about'),
 	url(r'^contact/$','contact.views.contact', name='contact'),
@@ -35,13 +36,12 @@ urlpatterns = [
 	url(r'^logout', views.logout, {'template_name': 'logout.html'}, name='logout'),
     url(r'^user/', include('user.urls')),
     url(r'^mycloset/(?P<user_id>\d+)/$', closet_views.UserClosetView.as_view(), name="my_closet"),
-    url(r'^upload/', closet_views.ItemImageView.as_view(), name='item_image_upload'),
-    url(r'^uploaded/(?P<pk>\d+)/$', closet_views.ItemDetailView.as_view(), name='item_image'),
     url(r'^new/$', closet_views.ItemCreate.as_view(), name='add_item'),
-    url(r'^show_item/(?P<item_id>\d+)/$', closet_views.ItemDetailView.as_view(), name='show_item'),
+    url(r'^show_item/(?P<pk>[-\w]+)/$', closet_views.ItemDetailView.as_view(), name='show_item'),
     url(r'^(?P<user_id>\d+)$', user_views.show_user, name='show_user'),
     url(r'^(?P<user_id>\d+)/follow/$', user_views.follow_user,
         name="follow_user"),
+
     
 
 

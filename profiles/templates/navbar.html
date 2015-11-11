@@ -1,4 +1,5 @@
 <!-- Fixed navbar -->
+{% load staticfiles %}
 <html>
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
@@ -9,18 +10,18 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+          {% if request.user.is_authenticated %}
           <a class="navbar-brand" href="/home">Bitsy Chic</a>
+          {% else %}
+          <a class="navbar-brand" href="/">Bitsy Chic</a>
+          {% endif %}
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
 	          {% url 'home' as home %}
-	          {% url 'about' as about %}
-              {% url 'contact' as contact %}
-            <li {% if request.path == home %} class="active"{%endif%}><a href="{% url 'home' %}">Home</a></li>
-            <li {% if request.path == about %} class="active"{%endif%}><a href="{% url 'about' %}">About</a></li>
             {% if request.user.is_authenticated %}
+            <li {% if request.path == home %} class="active"{%endif%}><a href="{% url 'home' %}">Home</a></li>
             <li {% if request.path == MyCloset %} class="active"{%endif%}><a href="{% url 'my_closet' user.id %}">My Closet</a></li>
-            <li {% if request.path == contact %} class="active"{%endif%}><a href="{% url 'contact' %}">Contact</a></li>
             <li {% if request.path == NewItem %} class="active"{%endif%}><a href="{% url 'add_item' %}">New Item</a></li>
             {% endif %}
             <li class="dropdown">
@@ -28,6 +29,8 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login or Register  <span class="caret"></span></a>
               {% else %}
               <li><a href="/logout">Logout</a></li>
+              <li><a href="#">You are currently logged in as {{ request.user }}</a></li>
+
               {% endif %}
               <ul class="dropdown-menu">
                 {% if not request.user.is_authenticated %}
@@ -37,14 +40,18 @@
                 <li><a href="/logout">Logout</a></li>
                 {% endif %}
                 <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
               </ul>
             </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-  <div class="footer">
+  <div class="footer nav navbar-nav" >
+    {% url 'about' as about %}
+    {% url 'contact' as contact %}
+    <li {% if request.path == about %} class="active"{%endif%}><a href="{% url 'about' %}">About</a></li>
+    <li {% if request.path == contact %} class="active"{%endif%}><a href="{% url 'contact' %}">Contact</a></li>
+
     <p>Copyright (c) 2015</p>
   </div>
 
